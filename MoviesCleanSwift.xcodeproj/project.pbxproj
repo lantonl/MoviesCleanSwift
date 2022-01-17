@@ -16,6 +16,15 @@
 		943350B7278F15BA0002EF2F /* MoviesCleanSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943350B6278F15BA0002EF2F /* MoviesCleanSwiftTests.swift */; };
 		943350C1278F15BA0002EF2F /* MoviesCleanSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943350C0278F15BA0002EF2F /* MoviesCleanSwiftUITests.swift */; };
 		943350C3278F15BA0002EF2F /* MoviesCleanSwiftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943350C2278F15BA0002EF2F /* MoviesCleanSwiftUITestsLaunchTests.swift */; };
+		D133ADAA2794398F000A03DE /* BaseNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADA92794398F000A03DE /* BaseNetworkingService.swift */; };
+		D133ADAD27943C6B000A03DE /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADAC27943C6B000A03DE /* URLSessionProtocol.swift */; };
+		D133ADB027943F84000A03DE /* URLSession+MoviesCleanSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADAF27943F84000A03DE /* URLSession+MoviesCleanSwift.swift */; };
+		D133ADB827946C4A000A03DE /* MoviesNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADB727946C4A000A03DE /* MoviesNetworkingService.swift */; };
+		D133ADBF279498CA000A03DE /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADBE279498CA000A03DE /* Movie.swift */; };
+		D133ADC127949916000A03DE /* MovieAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADC027949916000A03DE /* MovieAPIResponse.swift */; };
+		D133ADC32795A972000A03DE /* MoviesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADC22795A972000A03DE /* MoviesAPI.swift */; };
+		D133ADC52795B847000A03DE /* NetworkResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADC42795B847000A03DE /* NetworkResponseError.swift */; };
+		D133ADC72795BE6E000A03DE /* HTTPURLResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADC62795BE6E000A03DE /* HTTPURLResponseHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +58,15 @@
 		943350BC278F15BA0002EF2F /* MoviesCleanSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesCleanSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		943350C0278F15BA0002EF2F /* MoviesCleanSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCleanSwiftUITests.swift; sourceTree = "<group>"; };
 		943350C2278F15BA0002EF2F /* MoviesCleanSwiftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCleanSwiftUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D133ADA92794398F000A03DE /* BaseNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNetworkingService.swift; sourceTree = "<group>"; };
+		D133ADAC27943C6B000A03DE /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		D133ADAF27943F84000A03DE /* URLSession+MoviesCleanSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+MoviesCleanSwift.swift"; sourceTree = "<group>"; };
+		D133ADB727946C4A000A03DE /* MoviesNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesNetworkingService.swift; sourceTree = "<group>"; };
+		D133ADBE279498CA000A03DE /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		D133ADC027949916000A03DE /* MovieAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIResponse.swift; sourceTree = "<group>"; };
+		D133ADC22795A972000A03DE /* MoviesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPI.swift; sourceTree = "<group>"; };
+		D133ADC42795B847000A03DE /* NetworkResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseError.swift; sourceTree = "<group>"; };
+		D133ADC62795BE6E000A03DE /* HTTPURLResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPURLResponseHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +117,7 @@
 		9433509E278F15B90002EF2F /* MoviesCleanSwift */ = {
 			isa = PBXGroup;
 			children = (
+				D133ADA727943920000A03DE /* Core */,
 				9433509F278F15B90002EF2F /* AppDelegate.swift */,
 				943350A1278F15B90002EF2F /* SceneDelegate.swift */,
 				943350A3278F15B90002EF2F /* ViewController.swift */,
@@ -125,6 +144,70 @@
 				943350C2278F15BA0002EF2F /* MoviesCleanSwiftUITestsLaunchTests.swift */,
 			);
 			path = MoviesCleanSwiftUITests;
+			sourceTree = "<group>";
+		};
+		D133ADA727943920000A03DE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADC82795C009000A03DE /* Errors */,
+				D133ADAE27943F58000A03DE /* Extensions */,
+				D133ADBD279498B8000A03DE /* Models */,
+				D133ADA827943928000A03DE /* Networking */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		D133ADA827943928000A03DE /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADB92794880A000A03DE /* Base */,
+				D133ADBA27948817000A03DE /* MoviesService */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		D133ADAE27943F58000A03DE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADAF27943F84000A03DE /* URLSession+MoviesCleanSwift.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D133ADB92794880A000A03DE /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADA92794398F000A03DE /* BaseNetworkingService.swift */,
+				D133ADAC27943C6B000A03DE /* URLSessionProtocol.swift */,
+				D133ADC62795BE6E000A03DE /* HTTPURLResponseHandler.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		D133ADBA27948817000A03DE /* MoviesService */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADB727946C4A000A03DE /* MoviesNetworkingService.swift */,
+				D133ADC027949916000A03DE /* MovieAPIResponse.swift */,
+				D133ADC22795A972000A03DE /* MoviesAPI.swift */,
+			);
+			path = MoviesService;
+			sourceTree = "<group>";
+		};
+		D133ADBD279498B8000A03DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADBE279498CA000A03DE /* Movie.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D133ADC82795C009000A03DE /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADC42795B847000A03DE /* NetworkResponseError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,9 +341,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D133ADAD27943C6B000A03DE /* URLSessionProtocol.swift in Sources */,
+				D133ADC72795BE6E000A03DE /* HTTPURLResponseHandler.swift in Sources */,
+				D133ADBF279498CA000A03DE /* Movie.swift in Sources */,
+				D133ADB027943F84000A03DE /* URLSession+MoviesCleanSwift.swift in Sources */,
+				D133ADC32795A972000A03DE /* MoviesAPI.swift in Sources */,
+				D133ADB827946C4A000A03DE /* MoviesNetworkingService.swift in Sources */,
+				D133ADAA2794398F000A03DE /* BaseNetworkingService.swift in Sources */,
 				943350A4278F15B90002EF2F /* ViewController.swift in Sources */,
 				943350A0278F15B90002EF2F /* AppDelegate.swift in Sources */,
+				D133ADC127949916000A03DE /* MovieAPIResponse.swift in Sources */,
 				943350A2278F15B90002EF2F /* SceneDelegate.swift in Sources */,
+				D133ADC52795B847000A03DE /* NetworkResponseError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +531,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5KX3Y2CU6T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoviesCleanSwift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -466,6 +559,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5KX3Y2CU6T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoviesCleanSwift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
