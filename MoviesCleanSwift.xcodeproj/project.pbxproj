@@ -25,6 +25,11 @@
 		D133ADC32795A972000A03DE /* MoviesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADC22795A972000A03DE /* MoviesAPI.swift */; };
 		D133ADC52795B847000A03DE /* NetworkResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADC42795B847000A03DE /* NetworkResponseError.swift */; };
 		D133ADC72795BE6E000A03DE /* HTTPURLResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADC62795BE6E000A03DE /* HTTPURLResponseHandler.swift */; };
+		D133ADCA27960D15000A03DE /* UIViewController+MoviesCleanSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADC927960D15000A03DE /* UIViewController+MoviesCleanSwift.swift */; };
+		D133ADD0279611A6000A03DE /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADCF279611A6000A03DE /* BaseViewController.swift */; };
+		D133ADD327961471000A03DE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADD227961471000A03DE /* LoadingViewController.swift */; };
+		D133ADD527961580000A03DE /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D133ADD427961580000A03DE /* LoadingViewController.xib */; };
+		D133ADD927961763000A03DE /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D133ADD827961763000A03DE /* BaseNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +72,11 @@
 		D133ADC22795A972000A03DE /* MoviesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPI.swift; sourceTree = "<group>"; };
 		D133ADC42795B847000A03DE /* NetworkResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseError.swift; sourceTree = "<group>"; };
 		D133ADC62795BE6E000A03DE /* HTTPURLResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPURLResponseHandler.swift; sourceTree = "<group>"; };
+		D133ADC927960D15000A03DE /* UIViewController+MoviesCleanSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+MoviesCleanSwift.swift"; sourceTree = "<group>"; };
+		D133ADCF279611A6000A03DE /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D133ADD227961471000A03DE /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		D133ADD427961580000A03DE /* LoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
+		D133ADD827961763000A03DE /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +127,7 @@
 		9433509E278F15B90002EF2F /* MoviesCleanSwift */ = {
 			isa = PBXGroup;
 			children = (
+				D133ADCD27961184000A03DE /* UI */,
 				D133ADA727943920000A03DE /* Core */,
 				9433509F278F15B90002EF2F /* AppDelegate.swift */,
 				943350A1278F15B90002EF2F /* SceneDelegate.swift */,
@@ -170,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				D133ADAF27943F84000A03DE /* URLSession+MoviesCleanSwift.swift */,
+				D133ADC927960D15000A03DE /* UIViewController+MoviesCleanSwift.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -208,6 +220,49 @@
 				D133ADC42795B847000A03DE /* NetworkResponseError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		D133ADCD27961184000A03DE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADDB27961857000A03DE /* Common */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		D133ADCE2796118B000A03DE /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADCF279611A6000A03DE /* BaseViewController.swift */,
+			);
+			path = BaseViewController;
+			sourceTree = "<group>";
+		};
+		D133ADD127961454000A03DE /* LoadingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADD227961471000A03DE /* LoadingViewController.swift */,
+				D133ADD427961580000A03DE /* LoadingViewController.xib */,
+			);
+			path = LoadingViewController;
+			sourceTree = "<group>";
+		};
+		D133ADD62796174A000A03DE /* BaseNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADD827961763000A03DE /* BaseNavigationController.swift */,
+			);
+			path = BaseNavigationController;
+			sourceTree = "<group>";
+		};
+		D133ADDB27961857000A03DE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D133ADD62796174A000A03DE /* BaseNavigationController */,
+				D133ADD127961454000A03DE /* LoadingViewController */,
+				D133ADCE2796118B000A03DE /* BaseViewController */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,6 +372,7 @@
 				943350AC278F15B90002EF2F /* LaunchScreen.storyboard in Resources */,
 				943350A9278F15B90002EF2F /* Assets.xcassets in Resources */,
 				943350A7278F15B90002EF2F /* Main.storyboard in Resources */,
+				D133ADD527961580000A03DE /* LoadingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,9 +399,13 @@
 			files = (
 				D133ADAD27943C6B000A03DE /* URLSessionProtocol.swift in Sources */,
 				D133ADC72795BE6E000A03DE /* HTTPURLResponseHandler.swift in Sources */,
+				D133ADD327961471000A03DE /* LoadingViewController.swift in Sources */,
 				D133ADBF279498CA000A03DE /* Movie.swift in Sources */,
 				D133ADB027943F84000A03DE /* URLSession+MoviesCleanSwift.swift in Sources */,
+				D133ADCA27960D15000A03DE /* UIViewController+MoviesCleanSwift.swift in Sources */,
+				D133ADD0279611A6000A03DE /* BaseViewController.swift in Sources */,
 				D133ADC32795A972000A03DE /* MoviesAPI.swift in Sources */,
+				D133ADD927961763000A03DE /* BaseNavigationController.swift in Sources */,
 				D133ADB827946C4A000A03DE /* MoviesNetworkingService.swift in Sources */,
 				D133ADAA2794398F000A03DE /* BaseNetworkingService.swift in Sources */,
 				943350A4278F15B90002EF2F /* ViewController.swift in Sources */,
