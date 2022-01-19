@@ -9,13 +9,16 @@ import Foundation
 import UIKit
 
 class LoadingViewController: BaseViewController {
+    private struct Constants {
+        static let activityIndicatorColor = UIColor.black
+    }
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator.color = .blue
+        activityIndicator.color = Constants.activityIndicatorColor
         activityIndicator.startAnimating()
     }
 }

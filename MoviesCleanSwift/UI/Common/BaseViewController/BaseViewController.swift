@@ -11,7 +11,7 @@ import UIKit
 protocol BaseViewControllerProtocol: AnyObject {
     var loadingController: LoadingViewController? { get set }
     
-    func show(error: NSError)
+    func show(error: NetworkResponseError)
     func show(message: String, title: String?)
     
     func showLoadingController(aboveNavBar: Bool)
@@ -21,6 +21,11 @@ protocol BaseViewControllerProtocol: AnyObject {
 
 class BaseViewController: UIViewController {
     var loadingController: LoadingViewController?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
 }
 
 extension BaseViewController: BaseViewControllerProtocol {
@@ -28,8 +33,8 @@ extension BaseViewController: BaseViewControllerProtocol {
         self.title = title
     }
     
-    func show(error: NSError) {
-        self.show(message: error.localizedDescription, title: "Error")
+    func show(error: NetworkResponseError) {
+        self.show(message: error.description(), title: "Error")
     }
     
     func show(message: String, title: String?) {

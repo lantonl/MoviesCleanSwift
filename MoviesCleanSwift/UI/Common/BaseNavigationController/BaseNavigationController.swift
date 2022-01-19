@@ -10,9 +10,9 @@ import UIKit
 
 class BaseNavigationController: UINavigationController {
     private struct Constants {
-        static let fontSize = CGFloat(24)
-        static let backgroundColor = UIColor.blue
-        static let fontColor = UIColor.white
+        static let fontSize:CGFloat = 24
+        static let backgroundColor = UIColor.white
+        static let fontColor = UIColor.black
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -36,13 +36,14 @@ class BaseNavigationController: UINavigationController {
             .font: font
         ]
         
-        self.navigationBar.prefersLargeTitles = true
+        self.navigationBar.prefersLargeTitles = false
         self.navigationBar.isTranslucent = false
         self.navigationBar.barTintColor = Constants.backgroundColor
         self.navigationBar.tintColor = Constants.fontColor
         self.navigationBar.titleTextAttributes = textAttributes
 
         let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundColor = Constants.backgroundColor
         navBarAppearance.largeTitleTextAttributes = textAttributes
         navBarAppearance.titleTextAttributes = textAttributes
