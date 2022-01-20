@@ -12,8 +12,8 @@
 
 import UIKit
 
-@objc protocol MoviesListRoutingLogic {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+protocol MoviesListRoutingLogic {
+    func routToMovieDetails()
 }
 
 protocol MoviesListDataPassing {
@@ -23,32 +23,28 @@ protocol MoviesListDataPassing {
 class MoviesListRouter: NSObject, MoviesListRoutingLogic, MoviesListDataPassing {
     weak var viewController: MoviesListViewController?
     var dataStore: MoviesListDataStore?
+    
+    func routToMovieDetails() {
+        let destinationViewController = MovieDetailsViewController.loadFromNib()
+        
+        guard let source = dataStore, var destinationDataStore = destinationViewController.router?.dataStore else {
+            return
+        }
+        
+        passDataToProductDetails(source: source, destination: &destinationDataStore)
+        navigateToMovieDetails(source: viewController, destination: destinationViewController)
+    }
 
-// MARK: Routing (navigating to other screens)
-
-//func routeToSomewhere(segue: UIStoryboardSegue?) {
-//    if let segue = segue {
-//        let destinationVC = segue.destination as! SomewhereViewController
-//        var destinationDS = destinationVC.router!.dataStore!
-//        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-//    } else {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-//        var destinationDS = destinationVC.router!.dataStore!
-//        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-//        navigateToSomewhere(source: viewController!, destination: destinationVC)
-//    }
-//}
-
-// MARK: Navigation to other screen
-
-//func navigateToSomewhere(source: MoviesListViewController, destination: SomewhereViewController) {
-//    source.show(destination, sender: nil)
-//}
-
-// MARK: Passing data to other screen
-
-//    func passDataToSomewhere(source: MoviesListDataStore, destination: inout SomewhereDataStore) {
-//        destination.name = source.name
-//    }
+    func navigateToMovieDetails(source: MoviesListViewController?, destination: MovieDetailsViewController) {
+        source?.navigationController?.present(destination, animated: true)
+    }
+    
+    func passDataToProductDetails(source: MoviesListDataStore, destination: inout MovieDetailsDataStore) {
+        guard let selectedRow = viewController?.selectedRow(), selectedRow < source.movies.count else {
+            return
+        }
+        
+        let selectedMovieResponse = MovieDetails.Response(movie: source.movies[selectedRow])
+        destination.movie = selectedMovieResponse
+    }
 }
