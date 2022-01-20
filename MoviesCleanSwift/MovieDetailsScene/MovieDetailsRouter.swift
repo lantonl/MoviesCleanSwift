@@ -12,9 +12,7 @@
 
 import UIKit
 
-@objc protocol MovieDetailsRoutingLogic {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-}
+protocol MovieDetailsRoutingLogic {}
 
 protocol MovieDetailsDataPassing {
     var dataStore: MovieDetailsDataStore? { get }
