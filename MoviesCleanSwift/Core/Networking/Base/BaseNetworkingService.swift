@@ -8,6 +8,7 @@
 import Foundation
 
 typealias APICallback = (Result<Data?, Error>) -> Void
+typealias URLRequestCreationResult = (request: URLRequest?, error: Error?)
 
 protocol BaseNetworkingService {
     var baseUrl: URL! { get }
@@ -20,18 +21,27 @@ protocol BaseNetworkingService {
 
 extension BaseNetworkingService {
     func get(path: String, params: [String: String]?, headerParams: [String: String]? = nil, result: @escaping APICallback) {
-        let urlRequest = self.createGetRequest(path: path, params: params, headerParams: headerParams)
-        self.dataTask(with: urlRequest, result: result).resume()
+        let urlRequestCreationResult = self.createGetRequest(path: path, params: params, headerParams: headerParams)
+        
+        if let request = urlRequestCreationResult.request {
+            self.dataTask(with: request, result: result).resume()
+        } else {
+            result(.failure(urlRequestCreationResult.error ?? NetworkResponseError.badRequest))
+        }
     }
     
-    private func createGetRequest(path: String, params: [String: String]?, headerParams: [String: String]?) -> URLRequest {
+    private func createGetRequest(path: String, params: [String: String]?, headerParams: [String: String]?) -> URLRequestCreationResult {
         let urlComponents = self.urlComponents(with: path)
         urlComponents.queryItems = params?.map { (key, value) -> URLQueryItem in URLQueryItem(name: key, value: value) }
         
-        var urlRequest = URLRequest(url: urlComponents.url!)
+        guard let url = urlComponents.url else {
+            return (nil, NetworkResponseError.badRequest)
+        }
+        
+        var urlRequest = URLRequest(url: url)
         headerParams?.forEach { header in urlRequest.setValue(header.value, forHTTPHeaderField: header.key) }
         
-        return urlRequest
+        return (urlRequest, nil)
     }
     
     private func urlComponents(with path: String) -> NSURLComponents {
