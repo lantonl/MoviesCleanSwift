@@ -16,6 +16,9 @@ protocol MoviesListPresentationLogic {
     func showLoadingIndicator()
     func hideLoadingIndicator()
     func show(error: Error?)
+    func showEmtySearchRequestWarningMessage()
+    func showEmptySearchResultMessage()
+    func showInitialMessage()
     func present(moviesResponse: MoviesList.Movies.Response)
     func presentNextPage(moviesResponse: MoviesList.Movies.Response)
 }
@@ -27,6 +30,28 @@ class MoviesListPresenter {
 
 
 extension MoviesListPresenter: MoviesListPresentationLogic {
+    private struct Constants {
+        static let defaultWarningMessageTitle = "Something went wrong"
+        static let emtySearchRequestWarningMessageDescription = "We can not search films without name. Please type something"
+        static let emptySearchResultWarningMessageDescription = "We could not find any movies =("
+        
+        static let initialMessageTitle = "Hello!"
+        static let initialMessageDescription = "We can find any film you search. Just type something in search field! =)"
+    }
+    
+    func showInitialMessage() {
+        let message = MoviesList.UI.Message(title: Constants.initialMessageTitle, description: Constants.initialMessageDescription)
+        viewController?.display(message: message)
+    }
+    func showEmtySearchRequestWarningMessage() {
+        let message = MoviesList.UI.Message(title: Constants.defaultWarningMessageTitle, description: Constants.emtySearchRequestWarningMessageDescription)
+        viewController?.display(message: message)
+    }
+    
+    func showEmptySearchResultMessage() {
+        let message = MoviesList.UI.Message(title: Constants.defaultWarningMessageTitle, description: Constants.emptySearchResultWarningMessageDescription)
+        viewController?.display(message: message)
+    }
     
     func showLoadingIndicator() {
         viewController?.displayLoadingindicator()

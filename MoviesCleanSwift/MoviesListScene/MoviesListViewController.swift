@@ -16,6 +16,7 @@ protocol MoviesListDisplayLogic: AnyObject {
     func displayLoadingindicator()
     func hideLoadingindicator()
     func display(error: NetworkResponseError)
+    func display(message: MoviesList.UI.Message)
     func displayMovies(viewModel: MoviesList.UI.ViewModel)
 }
 
@@ -33,6 +34,8 @@ class MoviesListViewController: BaseViewController {
     private let searchController = UISearchController(searchResultsController: nil)
 
     private var cellConfigurations = [MoviesList.UI.CellConfiguration]()
+    
+    private var titleForSearching = ""
 
     // MARK: - Routing
 
@@ -51,15 +54,26 @@ class MoviesListViewController: BaseViewController {
         setup()
         setupTableView()
         setupSearchController()
-        requestMovies(with: "terminator")
+        interactor?.initialRequest()
         
         view.backgroundColor = Constants.backgroundColor
     }
     // MARK: - request data from MoviesListInteractor
 
-    func requestMovies(with title: String) {
+    private func requestFirstPageForMovies(with title: String) {
+        titleForSearching = title
         let request = MoviesList.Movies.Request(title: title)
-        interactor?.getMovies(request: request)
+        interactor?.getFirstBatchOfMovies(for: request)
+        tableView.setContentOffset(.zero, animated: true)
+    }
+    
+    private func requestNextPageForMovies() {
+        guard !titleForSearching.isEmpty else {
+            return
+        }
+        
+        let request = MoviesList.Movies.Request(title: titleForSearching)
+        interactor?.getNextBatchOfMovies(for: request)
     }
     
     // MARK: - Setup Clean Code Design Pattern
@@ -86,7 +100,7 @@ class MoviesListViewController: BaseViewController {
     }
     
     private func setupSearchController() {
-        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = Constants.searchBarPlaceholderText
         searchController.searchBar.tintColor = .black
@@ -97,6 +111,10 @@ class MoviesListViewController: BaseViewController {
 }
 
 extension MoviesListViewController: MoviesListDisplayLogic {
+    func display(message: MoviesList.UI.Message) {
+        show(message: message.description, title: message.title)
+    }
+    
     func displayMovies(viewModel: MoviesList.UI.ViewModel) {
         cellConfigurations = viewModel.cellConfigurations
         tableView.reloadData()
@@ -156,12 +174,16 @@ extension MoviesListViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         
-        requestMovies(with: "terminator")
+        requestNextPageForMovies()
     }
 }
 
-extension MoviesListViewController: UISearchResultsUpdating {
-  func updateSearchResults(for searchController: UISearchController) {
-    // TODO
-  }
+extension MoviesListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let titleForSearching = searchBar.text else {
+            return
+        }
+        
+        requestFirstPageForMovies(with: titleForSearching)
+    }
 }

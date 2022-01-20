@@ -24,6 +24,11 @@ enum MoviesList {
         struct ViewModel {
             let cellConfigurations: [CellConfiguration]
         }
+        
+        struct Message {
+            let title: String
+            let description: String
+        }
     }
     
     enum Movies {

@@ -13,7 +13,9 @@
 import UIKit
 
 protocol MoviesListBusinessLogic {
-    func getMovies(request: MoviesList.Movies.Request)
+    func initialRequest()
+    func getFirstBatchOfMovies(for request: MoviesList.Movies.Request)
+    func getNextBatchOfMovies(for request: MoviesList.Movies.Request)
 }
 
 protocol MoviesListDataStore {
@@ -26,39 +28,62 @@ class MoviesListInteractor: MoviesListBusinessLogic, MoviesListDataStore {
     }
     
     var presenter: MoviesListPresentationLogic?
-    var worker: MovesSceneNetworkingWorkerLogic?
+    var worker: MovesSceneNetworkingWorkerLogic!
     var moviesAPIResponse: MovieAPIResponse?
     
-    func getMovies(request: MoviesList.Movies.Request) {
-        worker = MoviesListWorker()
-        let pageToRequest = moviesAPIResponse == nil ? Constants.firstPageIndex : moviesAPIResponse?.nextPage
-        
-        guard let pageToLoad = pageToRequest else {
+    init(with worker: MoviesListWorker = MoviesListWorker()) {
+        self.worker = worker
+    }
+    
+    func initialRequest() {
+        presenter?.showInitialMessage()
+    }
+    
+    func getFirstBatchOfMovies(for request: MoviesList.Movies.Request) {
+        guard !request.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            presenter?.showEmtySearchRequestWarningMessage()
             return
         }
         
-        if pageToRequest == Constants.firstPageIndex {
-            presenter?.showLoadingIndicator()
-        }
+        presenter?.showLoadingIndicator()
         
-        worker?.getMovies(title: request.title, page: pageToLoad) { [weak self] result in
-            if pageToRequest == Constants.firstPageIndex {
-                self?.presenter?.hideLoadingIndicator()
-            }
+        worker?.getMovies(title: request.title, page: Constants.firstPageIndex) { [weak self] result in
+            self?.presenter?.hideLoadingIndicator()
             
             switch result {
             case .success(let response):
                 self?.moviesAPIResponse = response
-                guard let moviesAPIResponse = response else {
+                
+                guard let moviesAPIResponse = self?.moviesAPIResponse, !moviesAPIResponse.movies.isEmpty else {
+                    self?.presenter?.showEmtySearchRequestWarningMessage()
                     return
                 }
                 
-                let response = MoviesList.Movies.Response(movieAPIResponse: moviesAPIResponse)
-                if pageToRequest == Constants.firstPageIndex {
-                    self?.presenter?.present(moviesResponse: response)
-                } else {
-                    self?.presenter?.presentNextPage(moviesResponse: response)
+                let moviesListMoviesResponse = MoviesList.Movies.Response(movieAPIResponse: moviesAPIResponse)
+                
+                self?.presenter?.present(moviesResponse: moviesListMoviesResponse)
+            case .failure(let error):
+                self?.presenter?.show(error: error)
+            }
+        }
+    }
+    
+    func getNextBatchOfMovies(for request: MoviesList.Movies.Request) {
+        guard let pageToRequest = moviesAPIResponse?.nextPage else {
+            return
+        }
+        
+        worker?.getMovies(title: request.title, page: pageToRequest) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.moviesAPIResponse = response
+                
+                guard let moviesAPIResponse = self?.moviesAPIResponse else {
+                    return
                 }
+                
+                let moviesListMoviesResponse = MoviesList.Movies.Response(movieAPIResponse: moviesAPIResponse)
+                self?.presenter?.presentNextPage(moviesResponse: moviesListMoviesResponse)
             case .failure(let error):
                 self?.presenter?.show(error: error)
             }

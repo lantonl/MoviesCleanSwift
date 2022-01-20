@@ -25,7 +25,8 @@ class BaseNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setup()
+        setup()
+        view.backgroundColor = .white
     }
     
     private func setup() {
