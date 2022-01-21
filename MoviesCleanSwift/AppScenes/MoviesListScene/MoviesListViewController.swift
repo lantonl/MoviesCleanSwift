@@ -45,6 +45,7 @@ class MoviesListViewController: BaseViewController {
         interactor?.initialRequest()
         
         view.backgroundColor = Constants.backgroundColor
+        tableView.backgroundColor = Constants.backgroundColor
     }
     
     func selectedRow() -> Int? {
