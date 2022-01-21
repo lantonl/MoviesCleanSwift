@@ -9,18 +9,18 @@ import Foundation
 import UIKit
 
 protocol BaseViewControllerProtocol: AnyObject {
-    var loadingController: LoadingViewController? { get set }
+    var loadingIndicatorView: UIActivityIndicatorView? { get set }
     
     func show(error: NetworkResponseError)
     func show(message: String, title: String?)
     
-    func showLoadingController(aboveNavBar: Bool)
-    func hideLoadingController()
+    func showLoadingView(on controller: UIViewController)
+    func hideLoadingView()
     func set(title: String)
 }
 
 class BaseViewController: UIViewController {
-    var loadingController: LoadingViewController?
+    var loadingIndicatorView: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,17 +47,15 @@ extension BaseViewController: BaseViewControllerProtocol {
         self.present(popup, animated: true, completion: nil)
     }
     
-    func showLoadingController(aboveNavBar: Bool) {
-        showLoadingController(on: self, view: self.view)
+    func showLoadingView(on controller: UIViewController) {
+        let loadingIndicatorView = UIActivityIndicatorView(style: .large)
+        self.loadingIndicatorView = loadingIndicatorView
+        controller.view.addSubviewWithSameSizeConstraints(loadingIndicatorView)
+        loadingIndicatorView.startAnimating()
     }
     
-    func showLoadingController(on controller: UIViewController, view: UIView) {
-        loadingController = LoadingViewController()
-        controller.add(childViewController: loadingController!, to: view)
-    }
-    
-    func hideLoadingController() {
-        loadingController?.removeFromParentController()
-        loadingController = nil
+    func hideLoadingView() {
+        loadingIndicatorView?.removeFromSuperview()
+        loadingIndicatorView = nil
     }
 }
