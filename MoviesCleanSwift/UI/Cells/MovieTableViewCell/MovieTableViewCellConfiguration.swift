@@ -36,6 +36,5 @@ struct MovieTableViewCellConfiguration: BaseTableviewCellConfiguration {
         
         self.rateLabelText = "\(Constnats.ratingPlaceholder) \(rate?.string(maximumFractionDigits: Constnats.maximumFractionDigitsForRating) ?? "")"
         self.rateLabelHidden = rate == nil ? true : false
-        
     }
 }

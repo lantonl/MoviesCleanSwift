@@ -12,14 +12,18 @@
 
 import UIKit
 
-protocol MovesSceneNetworkingWorkerLogic {
+protocol MoviesListNetworkingWorkerLogic {
+    var service: MoviesNetworkingServiceProtocol { get }
+    
+    init(with service: MoviesNetworkingServiceProtocol)
+    
     func getMovies(title: String, page: Int, completion: @escaping (Result<MovieAPIResponse?, Error>) -> Void)
 }
 
-class MoviesListWorker: MovesSceneNetworkingWorkerLogic {
-    private let service: MoviesNetworkingServiceProtocol
+class MoviesListWorker: MoviesListNetworkingWorkerLogic {
+    internal let service: MoviesNetworkingServiceProtocol
     
-    init(with service: MoviesNetworkingServiceProtocol = MoviesNetworkingService()) {
+    required init(with service: MoviesNetworkingServiceProtocol = MoviesNetworkingService()) {
         self.service = service
     }
     

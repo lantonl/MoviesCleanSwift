@@ -19,22 +19,26 @@ protocol MoviesListBusinessLogic {
 }
 
 protocol MoviesListDataStore {
-    var moviesAPIResponse: MovieAPIResponse? { get set }
+    var movies: [Movie] { get set }
 }
 
-class MoviesListInteractor: MoviesListBusinessLogic, MoviesListDataStore {
+class MoviesListInteractor: MoviesListDataStore {
     private struct Constants {
         static let firstPageIndex = 1
     }
     
     var presenter: MoviesListPresentationLogic?
-    var worker: MovesSceneNetworkingWorkerLogic!
-    var moviesAPIResponse: MovieAPIResponse?
+    var worker: MoviesListNetworkingWorkerLogic!
+    var movies = [Movie]()
     
-    init(with worker: MoviesListWorker = MoviesListWorker()) {
+    private var moviesAPIResponse: MovieAPIResponse?
+    
+    init(with worker: MoviesListNetworkingWorkerLogic = MoviesListWorker()) {
         self.worker = worker
     }
-    
+}
+
+extension MoviesListInteractor: MoviesListBusinessLogic {
     func initialRequest() {
         presenter?.showInitialMessage()
     }
@@ -59,6 +63,7 @@ class MoviesListInteractor: MoviesListBusinessLogic, MoviesListDataStore {
                     return
                 }
                 
+                self?.movies = moviesAPIResponse.movies
                 let moviesListMoviesResponse = MoviesList.Movies.Response(movieAPIResponse: moviesAPIResponse)
                 
                 self?.presenter?.present(moviesResponse: moviesListMoviesResponse)
@@ -82,6 +87,7 @@ class MoviesListInteractor: MoviesListBusinessLogic, MoviesListDataStore {
                     return
                 }
                 
+                self?.movies.append(contentsOf: moviesAPIResponse.movies)
                 let moviesListMoviesResponse = MoviesList.Movies.Response(movieAPIResponse: moviesAPIResponse)
                 self?.presenter?.presentNextPage(moviesResponse: moviesListMoviesResponse)
             case .failure(let error):
