@@ -17,8 +17,6 @@ protocol MovieDetailsDisplayLogic: AnyObject {
 }
 
 class MovieDetailsViewController: BaseViewController, ModuleConfiguratorBased {
-    var moduleConfigurator: MovieDetailsModuleConfigurator!
-    
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var descriptionTextView: UITextView!
     @IBOutlet private var ratingLabel: UILabel!
@@ -27,6 +25,8 @@ class MovieDetailsViewController: BaseViewController, ModuleConfiguratorBased {
     
     var interactor: MovieDetailsBusinessLogic?
     var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?
+    
+    var moduleConfigurator: MovieDetailsModuleConfigurator!
     
     override func viewDidLoad() {
         super.viewDidLoad()

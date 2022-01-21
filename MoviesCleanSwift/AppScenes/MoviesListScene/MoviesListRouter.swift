@@ -13,15 +13,17 @@
 import UIKit
 
 protocol MoviesListRoutingLogic {
+    var viewController: MoviesListViewController? { get set }
     func routToMovieDetails()
 }
 
 protocol MoviesListDataPassing {
-    var dataStore: MoviesListDataStore? { get }
+    var dataStore: MoviesListDataStore? { get  set }
 }
 
 class MoviesListRouter: NSObject, MoviesListRoutingLogic, MoviesListDataPassing {
     weak var viewController: MoviesListViewController?
+    
     var dataStore: MoviesListDataStore?
     
     func routToMovieDetails() {
