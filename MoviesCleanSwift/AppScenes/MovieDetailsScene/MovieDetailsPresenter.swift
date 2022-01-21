@@ -13,6 +13,8 @@
 import UIKit
 
 protocol MovieDetailsPresentationLogic {
+    var viewController: MovieDetailsDisplayLogic? { get set }
+    
     func presentMovieDetails(response: MovieDetails.Response)
 }
 

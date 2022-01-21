@@ -12,10 +12,12 @@
 
 import UIKit
 
-protocol MovieDetailsRoutingLogic {}
+protocol MovieDetailsRoutingLogic {
+    var viewController: MovieDetailsViewController? { get set }
+}
 
 protocol MovieDetailsDataPassing {
-    var dataStore: MovieDetailsDataStore? { get }
+    var dataStore: MovieDetailsDataStore? { get set }
 }
 
 class MovieDetailsRouter: NSObject, MovieDetailsRoutingLogic, MovieDetailsDataPassing {

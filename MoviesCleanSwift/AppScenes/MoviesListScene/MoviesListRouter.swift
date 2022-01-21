@@ -25,7 +25,7 @@ class MoviesListRouter: NSObject, MoviesListRoutingLogic, MoviesListDataPassing 
     var dataStore: MoviesListDataStore?
     
     func routToMovieDetails() {
-        let destinationViewController = MovieDetailsViewController.loadFromNib()
+        let destinationViewController = MovieDetailsViewController.instantiate(with: MovieDetailsModuleConfigurator())
         
         guard let source = dataStore, var destinationDataStore = destinationViewController.router?.dataStore else {
             return

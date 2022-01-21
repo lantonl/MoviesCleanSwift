@@ -14,6 +14,7 @@ import UIKit
 
 protocol MovieDetailsBusinessLogic {
     func getMovieDetails()
+    var presenter: MovieDetailsPresentationLogic? { get set }
 }
 
 protocol MovieDetailsDataStore {

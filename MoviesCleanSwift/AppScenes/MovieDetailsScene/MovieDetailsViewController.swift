@@ -16,7 +16,9 @@ protocol MovieDetailsDisplayLogic: AnyObject {
     func displayMovieDetails(viewModel: MovieDetails.UI.ViewModel)
 }
 
-class MovieDetailsViewController: BaseViewController {
+class MovieDetailsViewController: BaseViewController, ModuleConfiguratorBased {
+    var moduleConfigurator: MovieDetailsModuleConfigurator!
+    
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var descriptionTextView: UITextView!
     @IBOutlet private var ratingLabel: UILabel!
@@ -26,32 +28,13 @@ class MovieDetailsViewController: BaseViewController {
     var interactor: MovieDetailsBusinessLogic?
     var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         interactor?.getMovieDetails()
     }
     
-    private func setup() {
-        let viewController = self
-        let interactor = MovieDetailsInteractor()
-        let presenter = MovieDetailsPresenter()
-        let router = MovieDetailsRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
+    func setup() {
+        moduleConfigurator.module(configure: self)
     }
     
     private func setupUI(with configuration: MovieDetailsViewControllerConfiguration) {
@@ -79,3 +62,5 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
         releaseDateLabel.text = viewModel.configuration.releaseDateText
     }
 }
+
+
