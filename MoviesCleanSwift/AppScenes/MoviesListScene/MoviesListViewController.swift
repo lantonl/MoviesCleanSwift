@@ -105,11 +105,11 @@ extension MoviesListViewController: MoviesListDisplayLogic {
     }
     
     func displayLoadingindicator() {
-        showLoadingController(aboveNavBar: true)
+        showLoadingView(on: searchController)
     }
     
     func hideLoadingindicator() {
-        hideLoadingController()
+        hideLoadingView()
     }
     
     func display(error: NetworkResponseError) {
