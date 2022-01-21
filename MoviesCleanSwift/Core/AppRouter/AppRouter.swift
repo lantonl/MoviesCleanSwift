@@ -21,7 +21,7 @@ struct AppRouter {
     }
     
     private func showMoviesListScene() {
-        let controller = MoviesListViewController.loadFromNib()
+        let controller = MoviesListViewController.instantiate(with: MoviesListModuleConfigurator())
         controller.title = Constants.moviesListViewControllerTitleText
         navController.viewControllers = [controller]
     }

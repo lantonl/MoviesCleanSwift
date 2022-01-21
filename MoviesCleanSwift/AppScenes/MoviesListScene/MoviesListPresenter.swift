@@ -13,6 +13,8 @@
 import UIKit
 
 protocol MoviesListPresentationLogic {
+    var viewController: MoviesListDisplayLogic? { get set }
+    
     func showLoadingIndicator()
     func hideLoadingIndicator()
     func show(error: Error?)

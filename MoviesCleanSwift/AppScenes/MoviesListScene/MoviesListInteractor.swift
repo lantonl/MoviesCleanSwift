@@ -13,6 +13,8 @@
 import UIKit
 
 protocol MoviesListBusinessLogic {
+    var presenter: MoviesListPresentationLogic? { get set }
+    
     func initialRequest()
     func getFirstBatchOfMovies(for request: MoviesList.Movies.Request)
     func getNextBatchOfMovies(for request: MoviesList.Movies.Request)
