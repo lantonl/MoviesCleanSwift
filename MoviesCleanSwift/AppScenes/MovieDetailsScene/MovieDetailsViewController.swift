@@ -27,7 +27,7 @@ class MovieDetailsViewController: BaseViewController, ModuleConfiguratorBased {
     
     var interactor: MovieDetailsBusinessLogic?
     var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         interactor?.getMovieDetails()

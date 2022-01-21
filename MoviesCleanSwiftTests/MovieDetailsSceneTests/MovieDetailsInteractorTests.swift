@@ -29,7 +29,7 @@ class MovieDetailsInteractorTests: XCTestCase {
     }
     
     func testProperInitialization() {
-        XCTAssertTrue(presenter.presentMovieDetailsCalled, "presentMovieDetails() should not be called")
+        XCTAssertFalse(presenter.presentMovieDetailsCalled, "presentMovieDetails() should not be called")
     }
     
     func testPresentMovieDetailsWithouDataStoreInitialization() {
@@ -42,6 +42,6 @@ class MovieDetailsInteractorTests: XCTestCase {
         sut.movie = MovieDetails.Response(movie: MovieDetailsModuleMockFactory.movieModelMock())  
         sut.getMovieDetails()
         
-        XCTAssertFalse(presenter.presentMovieDetailsCalled, "PresentMovieDetails should be called if data store is not empty")
+        XCTAssertTrue(presenter.presentMovieDetailsCalled, "PresentMovieDetails should be called if data store is not empty")
     }
 }

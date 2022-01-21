@@ -20,7 +20,7 @@ enum NetworkResponseError: Error {
     func description() -> String {
         switch self {
         case .noInternerConnection:
-            return "You need to be authenticated first."
+            return "No Interner Connection"
         case .success:
             return "Bad request"
         case .authenticationError:

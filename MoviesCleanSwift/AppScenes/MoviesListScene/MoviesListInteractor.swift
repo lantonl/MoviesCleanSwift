@@ -59,7 +59,7 @@ extension MoviesListInteractor: MoviesListBusinessLogic {
                 self?.moviesAPIResponse = response
                 
                 guard let moviesAPIResponse = self?.moviesAPIResponse, !moviesAPIResponse.movies.isEmpty else {
-                    self?.presenter?.showEmtySearchRequestWarningMessage()
+                    self?.presenter?.showEmptySearchResultMessage()
                     return
                 }
                 
