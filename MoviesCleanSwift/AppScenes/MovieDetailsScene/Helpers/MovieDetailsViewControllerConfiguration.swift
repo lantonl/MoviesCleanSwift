@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct MovieDetailsViewControllerConfiguration {
+struct MovieDetailsViewControllerConfiguration: Equatable {
     private struct Constnats {
         static let closeButtonTitleText = "Close"
         static let releaseDatePlaceholderText = "Relese date:"

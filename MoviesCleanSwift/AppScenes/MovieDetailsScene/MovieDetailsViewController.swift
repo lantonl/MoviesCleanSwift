@@ -35,6 +35,7 @@ class MovieDetailsViewController: BaseViewController, ModuleConfiguratorBased {
     
     func setup() {
         moduleConfigurator.module(configure: self)
+        interactor?.getMovieDetails()
     }
     
     private func setupUI(with configuration: MovieDetailsViewControllerConfiguration) {
