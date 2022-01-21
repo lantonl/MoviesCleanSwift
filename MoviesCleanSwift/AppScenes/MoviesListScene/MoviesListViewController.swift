@@ -45,6 +45,8 @@ class MoviesListViewController: BaseViewController, ModuleConfiguratorBased {
         setupTableView()
         setupSearchController()
         
+        interactor?.initialRequest()
+        
         view.backgroundColor = Constants.backgroundColor
         tableView.backgroundColor = Constants.backgroundColor
     }
@@ -71,7 +73,6 @@ class MoviesListViewController: BaseViewController, ModuleConfiguratorBased {
 
     func setup() {
         moduleConfigurator.module(configure: self)
-        interactor?.initialRequest()
     }
     
     private func setupTableView() {
