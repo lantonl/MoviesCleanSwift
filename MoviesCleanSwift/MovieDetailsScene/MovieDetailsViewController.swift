@@ -17,10 +17,11 @@ protocol MovieDetailsDisplayLogic: AnyObject {
 }
 
 class MovieDetailsViewController: BaseViewController {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var ratingLabel: UILabel!
-    @IBOutlet weak var releaseDateLabel: UILabel!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var descriptionTextView: UITextView!
+    @IBOutlet private var ratingLabel: UILabel!
+    @IBOutlet private var releaseDateLabel: UILabel!
+    @IBOutlet private var closeButton: UIButton!
     
     var interactor: MovieDetailsBusinessLogic?
     var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?
@@ -52,10 +53,26 @@ class MovieDetailsViewController: BaseViewController {
         router.viewController = viewController
         router.dataStore = interactor
     }
+    
+    private func setupUI(with configuration: MovieDetailsViewControllerConfiguration) {
+        titleLabel.font = configuration.titleLabelFont
+        descriptionTextView.font = configuration.descriptionTextViewFont
+        ratingLabel.font = configuration.ratingLabelFont
+        releaseDateLabel.font = configuration.releaseDateLabelFont
+        
+        closeButton.setTitle(configuration.closeButtonTitleText, for: .normal)
+        closeButton.setTitleColor(.black, for: .normal)
+    }
+    
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        dismiss(animated: true)
+    }
 }
 
 extension MovieDetailsViewController: MovieDetailsDisplayLogic {
     func displayMovieDetails(viewModel: MovieDetails.UI.ViewModel) {
+        setupUI(with: viewModel.configuration)
+        
         titleLabel.text = viewModel.configuration.titleText
         descriptionTextView.text = viewModel.configuration.desriptionText
         ratingLabel.text = viewModel.configuration.ratingText
