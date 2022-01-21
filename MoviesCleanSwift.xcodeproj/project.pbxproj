@@ -66,6 +66,7 @@
 		D13E2754279B15280069B806 /* MovieDetailsDisplayLogicMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13E2753279B15280069B806 /* MovieDetailsDisplayLogicMock.swift */; };
 		D13E2756279B16050069B806 /* MoviesDetailsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13E2755279B16050069B806 /* MoviesDetailsPresenterTests.swift */; };
 		D13E2758279B1D900069B806 /* MovieDetailsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13E2757279B1D900069B806 /* MovieDetailsInteractorTests.swift */; };
+		D13E2760279B43ED0069B806 /* MoviesListModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13E275F279B43ED0069B806 /* MoviesListModuleConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		D13E2753279B15280069B806 /* MovieDetailsDisplayLogicMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsDisplayLogicMock.swift; sourceTree = "<group>"; };
 		D13E2755279B16050069B806 /* MoviesDetailsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesDetailsPresenterTests.swift; sourceTree = "<group>"; };
 		D13E2757279B1D900069B806 /* MovieDetailsInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsInteractorTests.swift; sourceTree = "<group>"; };
+		D13E275F279B43ED0069B806 /* MoviesListModuleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListModuleConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +350,7 @@
 		D13E27032796A5390069B806 /* MoviesListScene */ = {
 			isa = PBXGroup;
 			children = (
+				D13E275E279B43A90069B806 /* Helpers */,
 				D13E26F62796A5110069B806 /* MoviesListPresenter.swift */,
 				D13E26F72796A5110069B806 /* MoviesListWorker.swift */,
 				D13E26F82796A5110069B806 /* MoviesListRouter.swift */,
@@ -475,6 +478,14 @@
 			children = (
 			);
 			path = MoviesListSceneTests;
+			sourceTree = "<group>";
+		};
+		D13E275E279B43A90069B806 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D13E275F279B43ED0069B806 /* MoviesListModuleConfigurator.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -620,6 +631,7 @@
 				D133ADC72795BE6E000A03DE /* HTTPURLResponseHandler.swift in Sources */,
 				D13E2716279748AF0069B806 /* AppRouter.swift in Sources */,
 				D13E272F27999F5D0069B806 /* MovieDetailsPresenter.swift in Sources */,
+				D13E2760279B43ED0069B806 /* MoviesListModuleConfigurator.swift in Sources */,
 				D13E2738279A1C120069B806 /* MovieDetailsViewControllerConfiguration.swift in Sources */,
 				D13E2743279AD9860069B806 /* ModuleConfiguratorBased.swift in Sources */,
 				D13E26FC2796A5110069B806 /* MoviesListPresenter.swift in Sources */,

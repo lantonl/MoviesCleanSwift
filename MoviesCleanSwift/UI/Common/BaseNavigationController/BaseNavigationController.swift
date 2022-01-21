@@ -20,7 +20,7 @@ class BaseNavigationController: UINavigationController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .darkContent
     }
     
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ class BaseNavigationController: UINavigationController {
         
         self.navigationBar.prefersLargeTitles = false
         self.navigationBar.isTranslucent = false
-        self.navigationBar.barTintColor = Constants.backgroundColor
+        self.navigationBar.barTintColor = .black
         self.navigationBar.tintColor = Constants.fontColor
         self.navigationBar.titleTextAttributes = textAttributes
 

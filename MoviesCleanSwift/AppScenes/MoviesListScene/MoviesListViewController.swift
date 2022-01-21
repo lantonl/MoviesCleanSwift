@@ -20,7 +20,7 @@ protocol MoviesListDisplayLogic: AnyObject {
     func displayMovies(viewModel: MoviesList.UI.ViewModel)
 }
 
-class MoviesListViewController: BaseViewController {
+class MoviesListViewController: BaseViewController, ModuleConfiguratorBased {
     private struct Constants {
         static let searchBarPlaceholderText = "Search Films"
         static let backgroundColor = UIColor.white
@@ -28,6 +28,8 @@ class MoviesListViewController: BaseViewController {
     
     var interactor: MoviesListBusinessLogic?
     var router: (NSObjectProtocol & MoviesListRoutingLogic & MoviesListDataPassing)?
+    
+    var moduleConfigurator: MoviesListModuleConfigurator!
     
     @IBOutlet private var tableView: UITableView!
     
@@ -42,6 +44,7 @@ class MoviesListViewController: BaseViewController {
         setup()
         setupTableView()
         setupSearchController()
+        
         interactor?.initialRequest()
         
         view.backgroundColor = Constants.backgroundColor
@@ -68,17 +71,8 @@ class MoviesListViewController: BaseViewController {
         interactor?.getNextBatchOfMovies(for: request)
     }
 
-    private func setup() {
-        let viewController = self
-        let interactor = MoviesListInteractor()
-        let presenter = MoviesListPresenter()
-        let router = MoviesListRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
+    func setup() {
+        moduleConfigurator.module(configure: self)
     }
     
     private func setupTableView() {
