@@ -37,18 +37,6 @@ class MoviesListViewController: BaseViewController {
     
     private var titleForSearching = ""
 
-    // MARK: - Routing
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-
-    // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -58,8 +46,11 @@ class MoviesListViewController: BaseViewController {
         
         view.backgroundColor = Constants.backgroundColor
     }
-    // MARK: - request data from MoviesListInteractor
-
+    
+    func selectedRow() -> Int? {
+        return tableView.indexPathForSelectedRow?.row
+    }
+    
     private func requestFirstPageForMovies(with title: String) {
         titleForSearching = title
         let request = MoviesList.Movies.Request(title: title)
@@ -75,8 +66,6 @@ class MoviesListViewController: BaseViewController {
         let request = MoviesList.Movies.Request(title: titleForSearching)
         interactor?.getNextBatchOfMovies(for: request)
     }
-    
-    // MARK: - Setup Clean Code Design Pattern
 
     private func setup() {
         let viewController = self
@@ -175,6 +164,10 @@ extension MoviesListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         requestNextPageForMovies()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        router?.routToMovieDetails()
     }
 }
 

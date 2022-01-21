@@ -13,7 +13,7 @@ class LoadingViewController: BaseViewController {
         static let activityIndicatorColor = UIColor.black
     }
 
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
