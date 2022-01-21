@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        
+        window?.overrideUserInterfaceStyle = .light
         window?.windowScene = windowScene
         
         let navController = BaseNavigationController()
